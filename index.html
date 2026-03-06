@@ -3,262 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>POKI GLOBAL | BRENNO CEO EDITION</title>
+    <title>POKI DO BRENNO | CEO EDITION V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* --- DESIGN SYSTEM POKI ORIGINAL --- */
         :root {
-            --p-purple: #6a42f4;
-            --p-dark: #4c2fb3;
-            --p-yellow: #ffde00;
-            --p-bg: #5b39d1;
-            --p-cyan: #00f2ff;
-            --card-radius: 20px;
-            --shadow: 0 8px 0 rgba(0,0,0,0.2);
-            --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --p-purple: #6a42f4; --p-dark: #4c2fb3; --p-yellow: #ffde00;
+            --p-bg: #5b39d1; --p-cyan: #00f2ff; --card-radius: 20px;
+            --shadow: 0 8px 0 rgba(0,0,0,0.2); --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--p-dark); 
-            background-image: radial-gradient(circle at 50% 0%, var(--p-purple) 0%, var(--p-dark) 75%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            padding-top: 160px;
-            overflow-x: hidden;
-            color: white;
-        }
+        body { background: var(--p-dark); background-image: radial-gradient(circle at 50% 0%, var(--p-purple) 0%, var(--p-dark) 75%); background-attachment: fixed; min-height: 100vh; padding-top: 160px; overflow-x: hidden; color: white; }
 
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            position: fixed; top: 0; width: 100%; height: 95px;
-            background: var(--p-purple); z-index: 10000;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px; border-bottom: 6px solid rgba(0,0,0,0.1);
-        }
+        header { position: fixed; top: 0; width: 100%; height: 95px; background: var(--p-purple); z-index: 10000; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 6px solid rgba(0,0,0,0.1); }
+        .logo { font-size: 50px; font-weight: 900; color: var(--p-yellow); letter-spacing: -4px; text-transform: lowercase; cursor: pointer; filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.15)); transition: 0.3s; }
+        .logo:hover { transform: scale(1.1) rotate(-3deg); }
 
-        .logo { 
-            font-size: 55px; font-weight: 900; color: var(--p-yellow); 
-            letter-spacing: -5px; text-transform: lowercase; cursor: pointer;
-            filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.15));
-        }
-
-        .search-container { flex: 1; max-width: 700px; margin: 0 40px; position: relative; }
-        .search-input {
-            width: 100%; height: 55px; border-radius: 30px; border: none;
-            padding-left: 60px; font-size: 20px; font-weight: 800; outline: none;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.2);
-        }
+        .search-container { flex: 1; max-width: 600px; margin: 0 40px; position: relative; }
+        .search-input { width: 100%; height: 55px; border-radius: 30px; border: none; padding-left: 60px; font-size: 18px; font-weight: 800; outline: none; box-shadow: inset 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; }
+        .search-input:focus { box-shadow: 0 0 20px var(--p-cyan); }
         .search-container::before { content: '🔍'; position: absolute; left: 22px; top: 15px; font-size: 24px; z-index: 1; opacity: 0.5; color: #333; }
 
         .top-stats { display: flex; gap: 15px; }
-        .stat-card { 
-            background: white; color: #333; padding: 12px 25px; border-radius: 50px; 
-            font-weight: 900; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px;
-        }
-
-        /* --- PROGRESS BAR --- */
+        .stat-card { background: white; color: #333; padding: 12px 25px; border-radius: 50px; font-weight: 900; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .stat-card.gain { transform: scale(1.2); color: #2ed573; }
+        
         .xp-engine { position: fixed; top: 95px; width: 100%; height: 6px; background: rgba(0,0,0,0.3); z-index: 9999; }
-        #xp-bar { width: 45%; height: 100%; background: var(--p-cyan); box-shadow: 0 0 15px var(--p-cyan); transition: 0.8s; }
+        #xp-bar { width: 10%; height: 100%; background: var(--p-cyan); box-shadow: 0 0 15px var(--p-cyan); transition: 0.8s; }
 
-        /* --- CATEGORIES STRIP --- */
-        .cat-bar {
-            position: fixed; top: 101px; width: 100%; height: 65px;
-            background: var(--p-bg); z-index: 9000;
-            display: flex; align-items: center; gap: 15px;
-            padding: 0 30px; overflow-x: auto; scrollbar-width: none;
-        }
-        .cat-bar::-webkit-scrollbar { display: none; }
-        .cat-item {
-            background: rgba(255,255,255,0.1); padding: 12px 25px; border-radius: 40px;
-            font-weight: 800; cursor: pointer; white-space: nowrap; transition: 0.3s;
-        }
-        .cat-item:hover { background: white; color: var(--p-purple); transform: translateY(-3px); }
+        .cat-bar { position: fixed; top: 101px; width: 100%; height: 65px; background: var(--p-bg); z-index: 9000; display: flex; align-items: center; gap: 15px; padding: 0 30px; overflow-x: auto; scrollbar-width: none; border-bottom: 4px solid rgba(0,0,0,0.1); }
+        .cat-item { background: rgba(255,255,255,0.1); padding: 10px 22px; border-radius: 40px; font-weight: 800; cursor: pointer; white-space: nowrap; transition: 0.3s; font-size: 14px; }
+        .cat-item:hover, .cat-active { background: white; color: var(--p-purple); transform: translateY(-3px); }
 
-        /* --- LAYOUT CENTRAL --- */
         .content-engine { display: flex; max-width: 1850px; margin: 0 auto; padding: 25px; gap: 25px; }
+        .poki-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); grid-auto-rows: 145px; grid-auto-flow: dense; gap: 15px; }
 
-        /* --- GRID MASTER (300 JOGOS) --- */
-        .poki-grid {
-            flex: 1; display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-            grid-auto-rows: 145px; grid-auto-flow: dense; gap: 15px;
-        }
+        .game-card { background: white; border-radius: var(--card-radius); position: relative; cursor: pointer; overflow: hidden; box-shadow: var(--shadow); transition: var(--spring); border: 2px solid transparent; }
+        .game-card:hover { transform: scale(1.08) translateY(-8px); z-index: 100; border-color: var(--p-cyan); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .game-card img { width: 100%; height: 100%; object-fit: cover; background: #eee; }
+        .game-card .info { position: absolute; bottom: 0; width: 100%; height: 35px; background: white; color: #333; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; text-transform: uppercase; }
 
-        /* --- CARD FINAL --- */
-        .game-card {
-            background: white; border-radius: var(--card-radius); position: relative;
-            cursor: pointer; overflow: hidden; box-shadow: var(--shadow);
-            transition: var(--spring);
-        }
-        .game-card:hover { transform: scale(1.1) translateY(-10px) rotate(1.5deg); z-index: 100; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-        .game-card:active { transform: scale(0.95); }
-
-        .game-card img { width: 100%; height: 100%; object-fit: cover; }
-        .game-card .info {
-            position: absolute; bottom: 0; width: 100%; height: 35px;
-            background: white; color: #333; display: flex; align-items: center;
-            justify-content: center; font-size: 11px; font-weight: 900; text-transform: uppercase;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        /* VARIAÇÕES GRID */
         .g-big { grid-column: span 2; grid-row: span 2; }
-        .g-wide { grid-column: span 2; }
-        .g-tall { grid-row: span 2; }
+        .tag { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 4px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; z-index: 5; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
 
-        /* TAGS */
-        .tag { position: absolute; top: 12px; right: 12px; background: #ff4757; color: white; padding: 5px 10px; border-radius: 10px; font-size: 10px; font-weight: 900; z-index: 5; }
+        .friends-panel { width: 300px; background: rgba(0,0,0,0.2); border-radius: 30px; padding: 25px; height: fit-content; position: sticky; top: 180px; backdrop-filter: blur(10px); }
+        .friend-row { display: flex; align-items: center; gap: 12px; margin-top: 15px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 15px; }
+        .friend-row img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #00ff00; }
 
-        /* --- SIDEBAR AMIGOS --- */
-        .friends-panel {
-            width: 320px; background: rgba(0,0,0,0.25); border-radius: 30px;
-            padding: 25px; height: calc(100vh - 200px); position: sticky; top: 180px;
-        }
-        .friends-panel h3 { color: var(--p-yellow); margin-bottom: 20px; font-size: 16px; text-transform: uppercase; }
-        .friend-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 20px; }
-        .friend-row img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid #00ff00; }
-        .friend-meta b { display: block; font-size: 14px; }
-        .friend-meta span { font-size: 11px; opacity: 0.6; }
-
-        /* --- PLAYER & LOADING --- */
         #poki-theatre { position: fixed; inset: 0; background: #000; z-index: 200000; display: none; flex-direction: column; }
-        .loader-overlay {
-            position: absolute; inset: 0; background: var(--p-purple);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200001;
-        }
-        .spinner { width: 80px; height: 80px; border: 10px solid var(--p-yellow); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+        .loader-overlay { position: absolute; inset: 0; background: var(--p-purple); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200001; transition: 0.5s; }
+        .spinner { width: 60px; height: 60px; border: 8px solid var(--p-yellow); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .nav-theatre { height: 75px; background: var(--p-purple); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
-        .nav-theatre h2 { font-weight: 900; letter-spacing: -1px; }
-        .back-button { background: var(--p-yellow); border: none; padding: 15px 40px; border-radius: 18px; font-weight: 900; font-size: 18px; cursor: pointer; box-shadow: 0 5px 0 #ccb200; }
-        
+        .nav-theatre { height: 70px; background: var(--p-purple); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+        .back-button { background: var(--p-yellow); border: none; padding: 12px 35px; border-radius: 15px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 4px 0 #ccb200; active {transform: translateY(2px); box-shadow: none;} }
         iframe { flex: 1; border: none; background: white; }
-
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo" onclick="location.reload()">poki</div>
-    <div class="search-container">
-        <input type="text" class="search-input" placeholder="Pesquisar entre 300+ jogos..." oninput="searchEngine(this.value)">
-    </div>
+    <div class="search-container"><input type="text" class="search-input" placeholder="Pesquisar jogos do Brenno..." oninput="searchEngine(this.value)"></div>
     <div class="top-stats">
-        <div class="stat-card">💰 <span id="money-val">500</span></div>
+        <div id="money-card" class="stat-card">💰 <span id="money-val">500</span></div>
         <div class="stat-card" style="background:var(--p-yellow)">⭐ LVL <span id="lvl-val">1</span></div>
     </div>
 </header>
 
 <div class="xp-engine"><div id="xp-bar"></div></div>
-
-<nav class="cat-bar">
-    <div class="cat-item">🔥 Popular</div>
-    <div class="cat-item">🏃 Ação</div>
-    <div class="cat-item">🏍️ Moto</div>
-    <div class="cat-item">⚽ Esportes</div>
-    <div class="cat-item">🧠 Puzzle</div>
-    <div class="cat-item">🚗 Carros</div>
-    <div class="cat-item">👗 Meninas</div>
-    <div class="cat-item">🔫 Tiro</div>
-    <div class="cat-item">🕹️ Clássicos</div>
-</nav>
+<nav class="cat-bar" id="cats"></nav>
 
 <div class="content-engine">
     <div class="poki-grid" id="master-grid"></div>
-
-    <aside class="friends-panel">
-        <h3>Amigos Online</h3>
+    <aside class="friends-panel" id="friends">
+        <h3>Líderes</h3>
         <div class="friend-row">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Brenno">
-            <div class="friend-meta"><b>Brenno (CEO)</b><span>No Menu Principal</span></div>
-        </div>
-        <div class="friend-row">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gamer1">
-            <div class="friend-meta"><b>Lucas_Pro</b><span>Jogando Subway Surfers</span></div>
-        </div>
-        <div class="friend-row">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi">
-            <div class="friend-meta"><b>Julia_Poki</b><span>Online</span></div>
-        </div>
-        <div class="friend-row" style="opacity:0.5">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Zero" style="border-color:gray">
-            <div class="friend-meta"><b>Marcos88</b><span>Offline</span></div>
+            <div><b>Brenno (CEO)</b><br><small style="color:#00ff00">Online agora</small></div>
         </div>
     </aside>
 </div>
 
 <div id="poki-theatre">
-    <div id="poki-loader" class="loader-overlay">
-        <div class="spinner"></div>
-        <h1 style="margin-top:25px; font-weight:900;">CARREGANDO...</h1>
-    </div>
-    <div class="nav-theatre">
-        <h2 id="game-name-display">POKI GAME</h2>
-        <button class="back-button" onclick="closeTheatre()">VOLTAR</button>
-    </div>
-    <iframe src="" id="theatre-iframe"></iframe>
+    <div id="poki-loader" class="loader-overlay"><div class="spinner"></div><h2 style="margin-top:20px;">CONECTANDO AO SERVIDOR...</h2></div>
+    <div class="nav-theatre"><h2 id="game-name-display">POKI GAME</h2><button class="back-button" onclick="closeTheatre()">SAIR DO JOGO</button></div>
+    <iframe src="" id="theatre-iframe" allow="autoplay; fullscreen; keyboard"></iframe>
 </div>
 
 <script>
-    /* --- DATA ENGINE: 300 JOGOS COM LINKS REAIS --- */
     const GAMES_DB = [
-        { n: "2048", i: "https://play-lh.googleusercontent.com/89S0699_0v6yLpS_o6V1YdAnvXJ9-9_zYm_p_X_A1F5V8Y2U6G7B9Z4H2J0K6G7B9Z4=w240-h480-rw", u: "https://play2048.co/", t: "HOT" },
-        { n: "Hextris", i: "https://play-lh.googleusercontent.com/v766jY7V7S6B6B5V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6=w240-h480-rw", u: "https://hextris.io/", t: "" },
-        { n: "Snake", i: "https://play-lh.googleusercontent.com/6J7V7S6B6B5V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6=w240-h480-rw", u: "https://n-p-n.github.io/snake/", t: "NEW" },
-        { n: "Flappy Bird", i: "https://play-lh.googleusercontent.com/v766jY7V7S6B6B5V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6V6=w240-h480-rw", u: "https://wayou.github.io/FlappyBird/", t: "" },
-        { n: "Minesweeper", i: "https://play-lh.googleusercontent.com/89S0699_0v6yLpS_o6V1YdAnvXJ9-9_zYm_p_X_A1F5V8Y2U6G7B9Z4H2J0K6G7B9Z4=w240-h480-rw", u: "https://vlad-shat.github.io/minesweeper-emoji/", t: "" }
+        { n: "2048 Real", i: "https://play2048.co/meta/apple-touch-icon.png", u: "https://play2048.co/", t: "HOT" },
+        { n: "Hextris", i: "https://hextris.io/images/touch-icon-114x114.png", u: "https://hextris.io/", t: "NEW" },
+        { n: "Snake.io", i: "https://n-p-n.github.io/snake/apple-touch-icon.png", u: "https://n-p-n.github.io/snake/", t: "" },
+        { n: "Flappy Bird", i: "https://wayou.github.io/FlappyBird/style/img/apple-touch-icon.png", u: "https://wayou.github.io/FlappyBird/", t: "" },
+        { n: "Minesweeper", i: "https://vlad-shat.github.io/minesweeper-emoji/favicon.png", u: "https://vlad-shat.github.io/minesweeper-emoji/", t: "" },
+        { n: "Space Invaders", i: "https://vlad-shat.github.io/space-invaders/invader.png", u: "https://vlad-shat.github.io/space-invaders/", t: "TOP" },
+        { n: "Breakout", i: "https://vlad-shat.github.io/breakout/favicon.ico", u: "https://vlad-shat.github.io/breakout/", t: "" },
+        { n: "Tower Block", i: "https://vlad-shat.github.io/tower-block/favicon.ico", u: "https://vlad-shat.github.io/tower-block/", t: "NEW" }
     ];
 
-    let currentXP = 45;
-    let currentLvl = 1;
-    let currentMoney = 500;
+    const CATEGORIES = ["🔥 Popular", "🏃 Ação", "🏍️ Moto", "🚗 Carros", "⚽ Esportes", "🧠 Puzzle", "🕹️ Clássicos"];
+    let xp = 10, lvl = 1, cash = 500;
 
     function buildGrid(search = "") {
         const grid = document.getElementById('master-grid');
         grid.innerHTML = "";
+        const filtered = GAMES_DB.filter(g => g.n.toLowerCase().includes(search.toLowerCase()));
         
-        // GERAR 300 CARDS
-        for(let i=0; i<300; i++) {
-            const game = GAMES_DB[i % GAMES_DB.length];
-            if(search && !game.n.toLowerCase().includes(search.toLowerCase())) continue;
-
+        for(let i=0; i < (search ? filtered.length : 150); i++) {
+            const g = search ? filtered[i] : GAMES_DB[i % GAMES_DB.length];
             const card = document.createElement('div');
-            card.className = 'game-card';
-            
-            // LOGICA DE MOSAICO POKI
-            if(i === 0 || i === 25 || i === 50 || i === 100) card.classList.add('g-big');
-            else if(i % 12 === 0) card.classList.add('g-wide');
-            else if(i % 7 === 0) card.classList.add('g-tall');
-
-            card.innerHTML = `
-                ${game.t ? `<div class="tag">${game.t}</div>` : ''}
-                <img src="${game.i}" onerror="this.src='https://via.placeholder.com/150/ffffff/333333?text=POKI'">
-                <div class="info">${game.n}</div>
-            `;
-            
-            card.onclick = () => openGame(game.u, game.n);
+            card.className = 'game-card' + (i % 15 === 0 ? ' g-big' : '');
+            card.innerHTML = `${g.t ? `<div class="tag">${g.t}</div>` : ''}<img src="${g.i}"><div class="info">${g.n}</div>`;
+            card.onclick = () => openGame(g.u, g.n);
             grid.appendChild(card);
         }
     }
 
-    function openGame(url, name) {
-        const theatre = document.getElementById('poki-theatre');
-        const loader = document.getElementById('poki-loader');
-        const iframe = document.getElementById('theatre-iframe');
-        
-        theatre.style.display = 'flex';
-        loader.style.display = 'flex';
-        iframe.src = url;
-        document.getElementById('game-name-display').innerText = name;
+    function openGame(u, n) {
         document.body.style.overflow = "hidden";
-
+        document.getElementById('poki-theatre').style.display = 'flex';
+        document.getElementById('poki-loader').style.display = 'flex';
+        document.getElementById('poki-loader').style.opacity = '1';
+        document.getElementById('theatre-iframe').src = u;
+        document.getElementById('game-name-display').innerText = n;
         setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 500);
-        }, 2000);
+            document.getElementById('poki-loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('poki-loader').style.display = 'none', 500);
+        }, 1200);
     }
 
     function closeTheatre() {
@@ -266,19 +140,21 @@
         document.getElementById('theatre-iframe').src = "";
         document.body.style.overflow = "auto";
         
-        // UPDATE STATS
-        currentMoney += 150;
-        currentXP += 20;
-        if(currentXP >= 100) { currentXP = 0; currentLvl++; }
+        // Efeito de Ganhar Moedas
+        cash += 250; xp += 20;
+        if(xp >= 100) { xp = 0; lvl++; }
         
-        document.getElementById('money-val').innerText = currentMoney;
-        document.getElementById('lvl-val').innerText = currentLvl;
-        document.getElementById('xp-bar').style.width = currentXP + '%';
+        const mCard = document.getElementById('money-card');
+        mCard.classList.add('gain');
+        setTimeout(() => mCard.classList.remove('gain'), 500);
+        
+        document.getElementById('money-val').innerText = cash;
+        document.getElementById('lvl-val').innerText = lvl;
+        document.getElementById('xp-bar').style.width = xp + '%';
     }
 
-    function searchEngine(val) { buildGrid(val); }
-
-    // INITIAL BOOT
+    CATEGORIES.forEach(c => document.getElementById('cats').innerHTML += `<div class="cat-item">${c}</div>`);
+    function searchEngine(v) { buildGrid(v); }
     window.onload = () => buildGrid();
 </script>
 </body>
